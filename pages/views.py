@@ -13,12 +13,11 @@ class HomePageView(TemplateView):
     
 
 class RegisterConfirmationView(LoginRequiredMixin, ListView):
-    
     model = CustomUser
     context_object_name = 'not_confirmed_artists'
     template_name = 'pages/register_confirmation.html'
     fields = ('email', 'IsArtist', 'ConfirmUser',)
-    
+
 class UserUpdateView(LoginRequiredMixin, UpdateView):
     model = CustomUser
     template_name = 'pages/user_update.html'
