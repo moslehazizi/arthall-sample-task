@@ -161,3 +161,5 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True 
 ACCOUNT_FORMS = {'signup': 'accounts.forms.CustomUserCreationForm'}
+
+DEFAULT_FROM_EMAIL = 'admin@arthallsample.com'
