@@ -12,6 +12,7 @@
             <p><a href="{% url 'account_logout' %}">Logout</a></p>
         {% elif not user.IsArtist and user.ConfirmUser %}
             Hi dear admin {{ user.email }}!
+            <p><a href="{% url 'register_confirmation' %}">Confirmation of artist registration</a></p>
             <p><a href="{% url 'account_logout' %}">Logout</a></p>
         {% endif %}
     {% else %}
