@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import CustomUser
+from django.urls import reverse
 
 CHOICES = (
     (1, 'poor'),
@@ -43,10 +44,12 @@ class Activity(models.Model):
         on_delete=models.SET_NULL,
         related_name='activity_status',
     )
-    photos = models.ImageField(upload_to='photos',)
+    photos = models.ImageField(upload_to='photos/', blank=True)
     desc = models.TextField()
+    aproved = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.activity_title, self.owner
+        return f'{self.activity_title} {self.owner}'
+
 
 

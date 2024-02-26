@@ -11,7 +11,12 @@ class CustomUserCreationForm(SignupForm):
         user.save()
         return user
 
+class CustomUserCreationFormAdmin(UserCreationForm):
+    class Meta:
+        model = get_user_model()
+        fields = UserCreationForm.Meta.fields + ('email',)
+
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = get_user_model()
-        fields = UserCreationForm.Meta.fields
+        fields = UserCreationForm.Meta.fields + ('email',)

@@ -1,10 +1,6 @@
-from typing import Any
-from django.http.response import HttpResponseRedirect
-from django.views.generic import TemplateView, UpdateView, DetailView, ListView
+from django.views.generic import TemplateView, UpdateView, ListView
 from accounts.models import CustomUser
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.http import HttpResponseForbidden
-from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class HomePageView(TemplateView):

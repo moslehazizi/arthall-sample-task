@@ -1,0 +1,24 @@
+{% extends "_base.html" %}
+
+<html>
+<head>
+    <title>
+        {% block title %}Activities that not aproved yet:{% endblock title %}
+    </title>
+</head>
+
+<body>
+    {% block content %}
+        <div class='container'>
+            <ul>
+                {% for activity in not_aproved_activities %}
+                    <li>
+                        <a href="{% url 'activity_update' activity.pk %}">{{activity}}</a>
+                    </li></br>
+                {% endfor %}
+            </ul>
+            <a href="{{request.META.HTTP_REFERER}}" class='btn btn-success'>Go back</a>   
+        </div>
+    {% endblock content %}
+</body>
+</html>
