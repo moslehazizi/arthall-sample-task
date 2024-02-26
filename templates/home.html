@@ -3,13 +3,12 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %}
-    <h1>Arthall sample task</h1>
     {% if user.is_authenticated %}
-        سلام {{ user.email }}!
-        <p><a href="{% url 'logout' %}">خروج</a></p>
+        Hi dear {{ user.email }}!
+        <p><a href="{% url 'logout' %}">Logout</a></p>
     {% else %}
-        <p>شما وارد حسابتان نشده اید.</p>
-        <a href="{% url 'login' %}">Log In</a>
+        <p>You are not log in</p>
+        <a href="{% url 'login' %}">Log In</a></br>
         <a href="{% url 'signup' %}">Sign Up</a>
     {% endif %}
 {% endblock content %}
