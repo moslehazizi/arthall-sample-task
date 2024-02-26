@@ -9,8 +9,8 @@ class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
-    list_display = ['email', 'username', 'IsArtist',]
-    fieldsets = UserAdmin.fieldsets + ((None, {"fields": ("IsArtist",)}),)
-    add_fieldsets = UserAdmin.add_fieldsets + ((None, {"fields": ("IsArtist",)}),)
+    list_display = ['email', 'username', 'IsArtist', 'ConfirmUser',]
+    fieldsets = UserAdmin.fieldsets + ((None, {"fields": ("IsArtist", "ConfirmUser",)}),)
+    add_fieldsets = UserAdmin.add_fieldsets + ((None, {"fields": ("IsArtist", "ConfirmUser",)}),)
 
 admin.site.register(CustomUser, CustomUserAdmin)
