@@ -37,10 +37,10 @@
                 <li class="nav-item">
                     {% if user.is_authenticated %}
                         <li><a class="nav-link">{{user.username}} {{user.email}}</a></li>
-                        <li><a class="nav-link" href="{% url "logout" %}">Log Out</a></li>
+                        <li><a class="nav-link" href="{% url "account_logout" %}">Log Out</a></li>
                     {% else %}
-                        <li><a class="nav-link" href="{% url "login" %}">Log In</a></li>
-                        <li><a class="nav-link" href="{% url "signup" %}">Sign Up</a></li>
+                        <li><a class="nav-link" href="{% url "account_login" %}">Log In</a></li>
+                        <li><a class="nav-link" href="{% url "account_signup" %}">Sign Up</a></li>
                     {% endif %}
                 </li>
             </ul>
