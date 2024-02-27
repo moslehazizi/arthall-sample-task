@@ -3,24 +3,30 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %}
-    {% if user.is_authenticated%}
-        {% if  user.IsArtist and user.ConfirmUser %}
-            Hi dear artist {{ user.email }}!
-            <p><a href="{% url 'activity_create' %}">Create activity</a></p>
-            <p><a href="{% url 'activity_list' %}">List of aproved activities</a></p>
-            <p><a href="{% url 'account_logout' %}">Logout</a></p>
-        {% elif user.IsArtist and not user.ConfirmUser%}
-            You are not confirmed by admin yet.
-            <p><a href="{% url 'account_logout' %}">Logout</a></p>
-        {% elif not user.IsArtist and user.ConfirmUser %}
-            Hi dear admin {{ user.email }}!
-            <p><a href="{% url 'register_confirmation' %}">Confirmation of artist registration</a></p>
-            <p><a href="{% url 'activity_list_not_aproved' %}">Aprove artists activities</a></p>
-            <p><a href="{% url 'account_logout' %}">Logout</a></p>
-        {% endif %}
-    {% else %}
-        <p>You are not log in</p>
-        <a href="{% url 'account_login' %}">Log In</a></br>
-        <a href="{% url 'account_signup' %}">Sign Up</a>
-    {% endif %}
+    <div class='container'>
+        <ul>
+            {% if user.is_authenticated%}
+                {% if  user.IsArtist and user.ConfirmUser %}
+                    Hi dear artist {{ user.email }}!
+                    <li><a href="{% url 'activity_create' %}">Create activity</a></li>
+                    <li><a href="{% url 'activity_list' %}">List of aproved activities</a></li>
+                    <li><a href="{% url 'account_logout' %}">Logout</a></li>
+                {% elif user.IsArtist and not user.ConfirmUser%}
+                    You are not confirmed by admin yet.
+                    <p><a href="{% url 'account_logout' %}">Logout</a></p>
+                {% elif not user.IsArtist and user.ConfirmUser %}
+                    Hi dear admin {{ user.email }}!
+                    <li><a href="{% url 'register_confirmation' %}">Confirmation of artist registration</a></li>
+                    <li><a href="{% url 'activity_list_not_aproved' %}">Aprove artists activities</a></li>
+                    <li><a href="{% url 'activity_create_by_admin' %}">Create activity for artist</a></li>
+                    <li><a href="{% url 'activity_list_all' %}">All activities</a></li>
+                    <p><a href="{% url 'account_logout' %}">Logout</a></p>
+                {% endif %}
+            {% else %}
+                <p>You are not log in</p>
+                <a href="{% url 'account_login' %}">Log In</a></br>
+                <a href="{% url 'account_signup' %}">Sign Up</a>
+            {% endif %}
+        </ul>
+    </div>
 {% endblock content %}
