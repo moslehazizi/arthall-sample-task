@@ -6,14 +6,14 @@
     <div class='container'>
         <ul>
             {% if user.is_authenticated%}
-                {% if  user.IsArtist and user.ConfirmUser %}
+                {% if  user.is_artist and user.confirm_user %}
                     <h3>You created an activity successfuly</h3></br>
                     <li><a href="{% url 'activity_create' %}">Create another activity</a></li>
                     <li><a href="{% url 'activity_list' %}">List of aproved activities</a></li>
-                {% elif user.IsArtist and not user.ConfirmUser%}
+                {% elif user.is_artist and not user.confirm_user%}
                     You are not confirmed by admin yet.
                     <p><a href="{% url 'account_logout' %}">Logout</a></p>
-                {% elif not user.IsArtist and user.ConfirmUser %}
+                {% elif not user.is_artist and user.confirm_user %}
                     <h3>You created an activity successfuly</h3></br>
                     <li><a href="{% url 'activity_create_by_admin' %}">Create another activity</a></li>
                     <li><a href="{% url 'activity_list_all' %}">All activities</a></li>

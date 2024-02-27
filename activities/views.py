@@ -20,7 +20,7 @@ class ActivityCreateView(LoginRequiredMixin, CreateView):
         if request.user.is_anonymous:
             return HttpResponseForbidden()
         elif request.user.is_authenticated:
-            if (not request.user.IsArtist and request.user.ConfirmUser) or not request.user.ConfirmUser:
+            if (not request.user.is_artist and request.user.confirm_user) or not request.user.confirm_user:
                 return HttpResponseForbidden()
         return super().dispatch(request, *args, **kwargs)
     
@@ -63,7 +63,7 @@ class ActivityCreateViewByAdmin(LoginRequiredMixin, CreateView):
         if request.user.is_anonymous:
             return HttpResponseForbidden()
         elif request.user.is_authenticated:
-            if (request.user.IsArtist and request.user.ConfirmUser) or (request.user.IsArtist and not request.user.ConfirmUser):
+            if (request.user.is_artist and request.user.confirm_user) or (request.user.is_artist and not request.user.confirm_user):
                 return HttpResponseForbidden()
         return super().dispatch(request, *args, **kwargs)
 
@@ -103,7 +103,7 @@ class ActivityListView(LoginRequiredMixin, ListView):
         if request.user.is_anonymous:
             return HttpResponseForbidden()
         elif request.user.is_authenticated:
-            if (not request.user.IsArtist and request.user.ConfirmUser) or not request.user.ConfirmUser:
+            if (not request.user.is_artist and request.user.confirm_user) or not request.user.confirm_user:
                 return HttpResponseForbidden()
         return super().dispatch(request, *args, **kwargs)
 
@@ -128,7 +128,7 @@ class ActivityListNotAprovedView(LoginRequiredMixin, ListView):
         if request.user.is_anonymous:
             return HttpResponseForbidden()
         elif request.user.is_authenticated:
-            if (request.user.IsArtist and request.user.ConfirmUser) or (request.user.IsArtist and not request.user.ConfirmUser):
+            if (request.user.is_artist and request.user.confirm_user) or (request.user.is_artist and not request.user.confirm_user):
                 return HttpResponseForbidden()
         return super().dispatch(request, *args, **kwargs)
 
@@ -152,7 +152,7 @@ class ActivityUpdateView(LoginRequiredMixin, UpdateView):
         if request.user.is_anonymous:
             return HttpResponseForbidden()
         elif request.user.is_authenticated:
-            if (request.user.IsArtist and request.user.ConfirmUser) or (request.user.IsArtist and not request.user.ConfirmUser):
+            if (request.user.is_artist and request.user.confirm_user) or (request.user.is_artist and not request.user.confirm_user):
                 return HttpResponseForbidden()       
         return super().dispatch(request, *args, **kwargs)
 
@@ -164,7 +164,7 @@ class ActivityListViewForAdmin(LoginRequiredMixin, ListView):
         if request.user.is_anonymous:
             return HttpResponseForbidden()
         elif request.user.is_authenticated:
-            if (request.user.IsArtist and request.user.ConfirmUser) or (request.user.IsArtist and not request.user.ConfirmUser):
+            if (request.user.is_artist and request.user.confirm_user) or (request.user.is_artist and not request.user.confirm_user):
                 return HttpResponseForbidden()       
         return super().dispatch(request, *args, **kwargs)
     

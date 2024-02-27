@@ -1,6 +1,5 @@
 from django.db import models
 from accounts.models import CustomUser
-from django.urls import reverse
 
 CHOICES = (
     (1, 'poor'),
@@ -16,7 +15,11 @@ class ActivityType(models.Model):
     need_to_aprove = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.name
+        if self.need_to_aprove == True:
+            aproved = 'بله'
+        else:
+            aproved = 'خیر'
+        return f'{self.name} - نیاز به تایید مدیر: {aproved}'
     
 class ActivityStatus(models.Model):
     status = models.CharField(max_length=50, blank=True, null=True)
@@ -49,7 +52,7 @@ class Activity(models.Model):
     aproved = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.activity_title} {self.owner}'
+        return f'{self.activity_title.name} -- {self.owner} -- from {self.start_time} to {self.end_time} -- {self.status} -- value: {self.value}'
 
 
 

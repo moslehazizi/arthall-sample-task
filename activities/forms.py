@@ -27,4 +27,4 @@ class ActivityCreationFormByAdmin(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super(ActivityCreationFormByAdmin, self).__init__(*args, **kwargs)
-        self.fields['owner'].queryset = CustomUser.objects.filter(IsArtist=True)
+        self.fields['owner'].queryset = CustomUser.objects.filter(is_artist=True)

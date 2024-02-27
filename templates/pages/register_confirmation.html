@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>
-        {% block title %}List of not confirmed users{% endblock title %}
+        {% block title %}List of not confirmed artists{% endblock title %}
     </title>
 </head>
 
@@ -11,15 +11,13 @@
     {% block content %}
         <div class='container'>
             <div>
-                <p>Dear admin go to user page by clicking on it:</p>
+                <p>Dear admin go to artist page by clicking on it:</p>
             </div>
             <ul>
                 {% for artist in not_confirmed_artists %}
-                    {% if not artist.ConfirmUser and artist.IsArtist%}
-                        <li>
-                            <p><a href="{% url "user_update" artist.pk %}?next={{ request.path }}">{{artist}}</a></p>
-                        </li>
-                    {% endif %}
+                    <li>
+                        <p><a href="{% url "user_update" artist.pk %}?next={{ request.path }}">{{artist}}</a></p>
+                    </li>
                 {% endfor %}
             </ul>
         </div>

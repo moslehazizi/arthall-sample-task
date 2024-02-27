@@ -6,15 +6,15 @@
     <div class='container'>
         <ul>
             {% if user.is_authenticated%}
-                {% if  user.IsArtist and user.ConfirmUser %}
+                {% if  user.is_artist and user.confirm_user %}
                     Hi dear artist {{ user.email }}!
                     <li><a href="{% url 'activity_create' %}">Create activity</a></li>
                     <li><a href="{% url 'activity_list' %}">List of aproved activities</a></li>
                     <li><a href="{% url 'account_logout' %}">Logout</a></li>
-                {% elif user.IsArtist and not user.ConfirmUser%}
+                {% elif user.is_artist and not user.confirm_user%}
                     You are not confirmed by admin yet.
                     <p><a href="{% url 'account_logout' %}">Logout</a></p>
-                {% elif not user.IsArtist and user.ConfirmUser %}
+                {% elif not user.is_artist and user.confirm_user %}
                     Hi dear admin {{ user.email }}!
                     <li><a href="{% url 'register_confirmation' %}">Confirmation of artist registration</a></li>
                     <li><a href="{% url 'activity_list_not_aproved' %}">Aprove artists activities</a></li>
