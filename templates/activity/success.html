@@ -1,0 +1,29 @@
+{% extends '_base.html' %}
+
+{% block title %}Success{% endblock title %}
+
+{% block content %}
+    <div class='container'>
+        <ul>
+            {% if user.is_authenticated%}
+                {% if  user.IsArtist and user.ConfirmUser %}
+                    <h3>You created an activity successfuly</h3></br>
+                    <li><a href="{% url 'activity_create' %}">Create another activity</a></li>
+                    <li><a href="{% url 'activity_list' %}">List of aproved activities</a></li>
+                {% elif user.IsArtist and not user.ConfirmUser%}
+                    You are not confirmed by admin yet.
+                    <p><a href="{% url 'account_logout' %}">Logout</a></p>
+                {% elif not user.IsArtist and user.ConfirmUser %}
+                    <h3>You created an activity successfuly</h3></br>
+                    <li><a href="{% url 'activity_create_by_admin' %}">Create another activity</a></li>
+                    <li><a href="{% url 'activity_list_all' %}">All activities</a></li>
+                    <p><a href="{% url 'account_logout' %}">Logout</a></p>
+                {% endif %}
+            {% else %}
+                <p>You are not loged in</p>
+                <a href="{% url 'account_login' %}">Log In</a></br>
+                <a href="{% url 'account_signup' %}">Sign Up</a>
+            {% endif %}
+        </ul>
+    </div>
+{% endblock content %}
