@@ -1,4 +1,7 @@
 
+from typing import Any
+from django.http import HttpRequest
+from django.http.response import HttpResponseForbidden
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from .models import Activity
 from accounts.models import CustomUser
@@ -12,6 +15,14 @@ class ActivityCreateView(LoginRequiredMixin, CreateView):
     template_name = 'activity/activity_create.html'
     form_class = ActivityCreationForm
     success_url = reverse_lazy('activity_create')
+
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        if request.user.is_anonymous:
+            return HttpResponseForbidden()
+        elif request.user.is_authenticated:
+            if (not request.user.IsArtist and request.user.ConfirmUser) or not request.user.ConfirmUser:
+                return HttpResponseForbidden()
+        return super().dispatch(request, *args, **kwargs)
     
     def form_valid(self, form):
         form.instance.owner = self.request.user
@@ -32,6 +43,15 @@ class ActivityCreateViewByAdmin(LoginRequiredMixin, CreateView):
     form_class = ActivityCreationFormByAdmin
     success_url = reverse_lazy('activity_create_by_admin')
 
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        if request.user.is_anonymous:
+            return HttpResponseForbidden()
+        elif request.user.is_authenticated:
+            if (request.user.IsArtist and request.user.ConfirmUser) or (request.user.IsArtist and not request.user.ConfirmUser):
+                return HttpResponseForbidden()
+        
+        return super().dispatch(request, *args, **kwargs)
+
     def form_valid(self, form):
         form.instance.save()
         subject = 'New activity created'
@@ -41,15 +61,18 @@ class ActivityCreateViewByAdmin(LoginRequiredMixin, CreateView):
 
         send_mail(subject, message, sender_email, recipient_list)
         return super(ActivityCreateViewByAdmin, self).form_valid(form)
-    
-    
-class ActivityDetailView(LoginRequiredMixin, DetailView):
-    model = Activity
-    template_name = 'activity/activity_detail.html'
 
-class ActivityListView(ListView):
+class ActivityListView(LoginRequiredMixin, ListView):
     model = Activity
     template_name = 'activity/activity_list.html'
+
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        if request.user.is_anonymous:
+            return HttpResponseForbidden()
+        elif request.user.is_authenticated:
+            if (not request.user.IsArtist and request.user.ConfirmUser) or not request.user.ConfirmUser:
+                return HttpResponseForbidden()
+        return super().dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
         querySet = [
@@ -68,6 +91,15 @@ class ActivityListNotAprovedView(LoginRequiredMixin, ListView):
     model = Activity
     template_name = 'activity/activity_list_not_aproved.html'
 
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        if request.user.is_anonymous:
+            return HttpResponseForbidden()
+        elif request.user.is_authenticated:
+            if (request.user.IsArtist and request.user.ConfirmUser) or (request.user.IsArtist and not request.user.ConfirmUser):
+                return HttpResponseForbidden()
+        
+        return super().dispatch(request, *args, **kwargs)
+
     def get_queryset(self):
         querySet = Activity.objects.filter(aproved=False).filter(activity_title_id__need_to_aprove=True)
         return querySet
@@ -84,9 +116,27 @@ class ActivityUpdateView(LoginRequiredMixin, UpdateView):
     fields = '__all__'
     success_url = reverse_lazy('activity_list_not_aproved')
 
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        if request.user.is_anonymous:
+            return HttpResponseForbidden()
+        elif request.user.is_authenticated:
+            if (request.user.IsArtist and request.user.ConfirmUser) or (request.user.IsArtist and not request.user.ConfirmUser):
+                return HttpResponseForbidden()
+        
+        return super().dispatch(request, *args, **kwargs)
+
 class ActivityListViewForAdmin(LoginRequiredMixin, ListView):
     model = Activity
     template_name = 'activity/activity_list_all.html'
+
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        if request.user.is_anonymous:
+            return HttpResponseForbidden()
+        elif request.user.is_authenticated:
+            if (request.user.IsArtist and request.user.ConfirmUser) or (request.user.IsArtist and not request.user.ConfirmUser):
+                return HttpResponseForbidden()
+        
+        return super().dispatch(request, *args, **kwargs)
     
     def get_queryset(self):
         querySet = Activity.objects.all()
