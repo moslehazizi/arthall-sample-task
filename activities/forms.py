@@ -7,9 +7,9 @@ class ActivityCreationForm(forms.ModelForm):
         model = Activity
         fields = ['activity_title', 'value', 'start_time', 'end_time', 'status', 'photos', 'desc',]
         widgets = {
-            'photos': forms.ClearableFileInput(attrs={'multiple': True}),
             'start_time': forms.DateInput(attrs={'type': 'date', 'placeholder': 'yyyy-mm-dd (DOB)', 'class': 'form-control'}),
-            'end_time': forms.DateInput(attrs={'type': 'date', 'placeholder': 'yyyy-mm-dd (DOB)', 'class': 'form-control'})
+            'end_time': forms.DateInput(attrs={'type': 'date', 'placeholder': 'yyyy-mm-dd (DOB)', 'class': 'form-control'}),
+            'photos': forms.ClearableFileInput(attrs={'multiple': True}),
         }
 
     def __init__(self, *args, **kwargs):
@@ -20,9 +20,9 @@ class ActivityCreationFormByAdmin(forms.ModelForm):
         model = Activity
         fields = ['owner', 'activity_title', 'value', 'start_time', 'end_time', 'status', 'photos', 'desc', 'aproved',]
         widgets = {
-            'photos': forms.ClearableFileInput(attrs={'multiple': True}),
             'start_time': forms.DateInput(attrs={'type': 'date', 'placeholder': 'yyyy-mm-dd (DOB)', 'class': 'form-control'}),
-            'end_time': forms.DateInput(attrs={'type': 'date', 'placeholder': 'yyyy-mm-dd (DOB)', 'class': 'form-control'})
+            'end_time': forms.DateInput(attrs={'type': 'date', 'placeholder': 'yyyy-mm-dd (DOB)', 'class': 'form-control'}),
+            'photos': forms.ClearableFileInput(attrs={'multiple': True}),
         }
     
     def __init__(self, *args, **kwargs):
