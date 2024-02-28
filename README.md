@@ -1,6 +1,7 @@
 Arthallco sample task
 
 setup
+
 The first thing to do is to clone the repository:
 
     $ git clone https://github.com/moslehazizi/arthall-sample-task.git
