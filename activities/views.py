@@ -11,12 +11,23 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 class ActivityCreateView(LoginRequiredMixin, CreateView):
+    '''
+    This class is inheriting from CreateView generic class and
+    it is for creating an activity by artist.
+    '''
     model = Activity
     template_name = 'activity/activity_create.html'
     form_class = ActivityCreationForm
     success_url = reverse_lazy('success')
 
     def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        '''
+        This is one of 'LoginRequiredMixin''s methods. I use it to set permission to access this view.
+        This view is just for artist, So I limmited it.
+        So users that request this view should not have following conditions:
+            - not anonymous user (not authenticated user)
+            - not admin user
+        '''
         if request.user.is_anonymous:
             return HttpResponseForbidden()
         elif request.user.is_authenticated:
@@ -25,9 +36,19 @@ class ActivityCreateView(LoginRequiredMixin, CreateView):
         return super().dispatch(request, *args, **kwargs)
     
     def form_valid(self, form):
+        '''
+        This is one of 'CreateView''s methods. When a form is submitted and all the data passes validation,
+        the 'form_valid' method is called. This method is responsible for what happens next. I use it for 
+        set mail sending and sms sender services, So that when instance of model created, Email sender service
+        send an email to artist who create activity or admin create activity for him/her. and also sms provide service
+        send message via artist's phone number to notify him/her.
+        '''
         form.instance.owner = self.request.user
         form.instance.save()
 
+        '''
+        I use django built-in mail sender package. So when an instance of Activity is created. email sender send an email to log.
+        '''
         subject = 'New activity created'
         message = f'Hello dear {self.request.user.username},\n\n You have created new activity with title of {form.instance.activity_title}.'
         sender_email = 'admin@arthallsample.com'
@@ -60,6 +81,13 @@ class ActivityCreateViewByAdmin(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('success')
 
     def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        '''
+        This is one of 'LoginRequiredMixin''s methods. I use it to set permission to access this view.
+        This view is just for admins, So I limmited it.
+        So users that request this view should not have following conditions:
+            - not anonymous user (not authenticated user)
+            - not artist (confirmed or not)
+        '''
         if request.user.is_anonymous:
             return HttpResponseForbidden()
         elif request.user.is_authenticated:
@@ -100,6 +128,13 @@ class ActivityListView(LoginRequiredMixin, ListView):
     template_name = 'activity/activity_list.html'
 
     def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        '''
+        This is one of 'LoginRequiredMixin''s methods. I use it to set permission to access this view.
+        This view is just for artist, So I limmited it.
+        So users that request this view should not have following conditions:
+            - not anonymous user (not authenticated user)
+            - not admin user
+        '''
         if request.user.is_anonymous:
             return HttpResponseForbidden()
         elif request.user.is_authenticated:
@@ -125,6 +160,13 @@ class ActivityListNotAprovedView(LoginRequiredMixin, ListView):
     template_name = 'activity/activity_list_not_aproved.html'
 
     def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        '''
+        This is one of 'LoginRequiredMixin''s methods. I use it to set permission to access this view.
+        This view is just for admins, So I limmited it.
+        So users that request this view should not have following conditions:
+            - not anonymous user (not authenticated user)
+            - not artist (confirmed or not)
+        '''
         if request.user.is_anonymous:
             return HttpResponseForbidden()
         elif request.user.is_authenticated:
@@ -149,6 +191,13 @@ class ActivityUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('activity_list_not_aproved')
 
     def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        '''
+        This is one of 'LoginRequiredMixin''s methods. I use it to set permission to access this view.
+        This view is just for admins, So I limmited it.
+        So users that request this view should not have following conditions:
+            - not anonymous user (not authenticated user)
+            - not artist (confirmed or not)
+        '''
         if request.user.is_anonymous:
             return HttpResponseForbidden()
         elif request.user.is_authenticated:
@@ -161,6 +210,13 @@ class ActivityListViewForAdmin(LoginRequiredMixin, ListView):
     template_name = 'activity/activity_list_all.html'
 
     def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        '''
+        This is one of 'LoginRequiredMixin''s methods. I use it to set permission to access this view.
+        This view is just for admins, So I limmited it.
+        So users that request this view should not have following conditions:
+            - not anonymous user (not authenticated user)
+            - not artist (confirmed or not)
+        '''
         if request.user.is_anonymous:
             return HttpResponseForbidden()
         elif request.user.is_authenticated:

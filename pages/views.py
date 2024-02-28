@@ -42,9 +42,9 @@ class RegisterConfirmationView(LoginRequiredMixin, ListView):
     
     def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
         '''
-        This is one of 'LoginRequiredMixin''s methods. I use it for set permission to access this view.
+        This is one of 'LoginRequiredMixin''s methods. I use it to set permission to access this view.
         This view is just for admins, So I limmited it.
-        So users that request this view must not have bellow conditions:
+        So users that request this view should not have following conditions:
             - not anonymous user (not authenticated user)
             - not artist (confirmed or not)
         '''
@@ -65,9 +65,9 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
 
     def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
         '''
-        This is one of 'LoginRequiredMixin''s methods. I use it for set permission to access this view.
+        This is one of 'LoginRequiredMixin''s methods. I use it to set permission to access this view.
         This view is just for admins, So I limmited it.
-        So users that request this view must not have bellow conditions:
+        So users that request this view should not have following conditions:
             - not anonymous user (not authenticated user)
             - not artist (confirmed or not)
         '''
