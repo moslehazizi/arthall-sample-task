@@ -19,7 +19,7 @@ from accounts.models import CustomUser
 6- status: برای انتخاب یکی از این وضعیت ها استفاده میکند ActivityStatus این فیلد وضعیت فعالیت را نشان میدهد(در حال انجام یا تکمیل شده) که از مدل   
 7- photos: گالری تصاویر فعالیت
 8- desc: توضیحات فعالیت
-9- aproved: این فیلد وضعیت فعالیت (تایید شده توسط ادمین یا خیر) را نشان می دهد.
+9- approved: این فیلد وضعیت فعالیت (تایید شده توسط ادمین یا خیر) را نشان می دهد.
              اگر فعالیت از نوعی باشد که نیاز به تایید مدیر نداشته باشد تایید یا عدم تایید این فیلد تاثیری در وضعیت نمایش آن فعالیت ندارد. 
 
 '''     
@@ -35,14 +35,14 @@ CHOICES = (
 
 class ActivityType(models.Model):
     name = models.CharField(max_length=75)
-    need_to_aprove = models.BooleanField(default=True)
+    need_to_approve = models.BooleanField(default=True)
 
     def __str__(self):
-        if self.need_to_aprove == True:
-            aproved = 'بله'
+        if self.need_to_approve == True:
+            approved = 'بله'
         else:
-            aproved = 'خیر'
-        return f'{self.name} - نیاز به تایید مدیر: {aproved}'
+            approved = 'خیر'
+        return f'{self.name} - نیاز به تایید مدیر: {approved}'
     
 class ActivityStatus(models.Model):
     status = models.CharField(max_length=50, blank=True, null=True)
@@ -72,7 +72,7 @@ class Activity(models.Model):
     )
     photos = models.ImageField(upload_to='photos/', blank=True)
     desc = models.TextField()
-    aproved = models.BooleanField(default=False)
+    approved = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.activity_title.name} -- {self.owner} -- from {self.start_time} to {self.end_time} -- {self.status} -- value: {self.value}'

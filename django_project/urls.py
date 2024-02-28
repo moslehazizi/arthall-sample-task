@@ -11,6 +11,6 @@ urlpatterns = [
     path('activity/', include('activities.urls')),
 
     # User management
-    path('accounts/', include('allauth.urls')),
+    path('accounts/', include('allauth.urls')), # I use django-allauth package to signup artists.
     
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # allow media file store media root after uploaded.

@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>
-        {% block title %}Activities that not aproved yet:{% endblock title %}
+        {% block title %}Activities that not approved yet:{% endblock title %}
     </title>
 </head>
 
@@ -11,7 +11,7 @@
     {% block content %}
         <div class='container'>
             <ul>
-                {% for activity in not_aproved_activities %}
+                {% for activity in not_approved_activities %}
                     <li>
                         <a href="{% url 'activity_update' activity.pk %}">{{activity}}</a>
                     </li></br>

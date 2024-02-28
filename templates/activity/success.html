@@ -9,7 +9,7 @@
                 {% if  user.is_artist and user.confirm_user %}
                     <h3>You created an activity successfuly</h3></br>
                     <li><a href="{% url 'activity_create' %}">Create another activity</a></li>
-                    <li><a href="{% url 'activity_list' %}">List of aproved activities</a></li>
+                    <li><a href="{% url 'activity_list' %}">List of approved activities</a></li>
                 {% elif user.is_artist and not user.confirm_user%}
                     You are not confirmed by admin yet.
                     <p><a href="{% url 'account_logout' %}">Logout</a></p>
