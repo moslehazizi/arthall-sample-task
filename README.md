@@ -17,7 +17,7 @@ Now You must see the (.venv) in front of the prompt. Then install dependencies:
 
 Now:
 
-    (venv)$ python manage.py runserver
+    (.venv)$ python manage.py runserver
 
 See django admin site with superuser:
 
