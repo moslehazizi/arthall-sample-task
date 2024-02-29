@@ -1,6 +1,6 @@
 Arthallco sample task
 
-setup
+Setup
 
 The first thing to do is to clone the repository:
 
@@ -34,3 +34,5 @@ And log in as artist:
 
     email: testartist1@email.com
     password: test123456
+
+There is a pdf file in document folder in project main directory that I made it to explain what I have done.
